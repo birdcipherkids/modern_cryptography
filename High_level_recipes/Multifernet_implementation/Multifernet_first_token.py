@@ -1,0 +1,42 @@
+from cryptography.fernet import Fernet, MultiFernet
+
+print()
+print()
+print(' ====================================================================================================================== ')
+print()
+print('                                        Welcome to the MultiFernet Encryption Program                                   ')
+print()
+print(' =======================================================================================================================')
+print()
+print()
+
+message = input('    Please enter the message to encrypt:\n\n    ')
+message = message.encode()
+print()
+print()
+
+key1 = Fernet.generate_key()
+key2 = Fernet.generate_key()
+key3 = Fernet.generate_key()
+key1_prep = Fernet(key1)
+key2_prep = Fernet(key2)
+key3_prep = Fernet(key3)
+
+f = MultiFernet([key1_prep, key2_prep, key3_prep])
+token = f.encrypt(message)
+
+message_decrypted = f.decrypt(token)
+
+print('    Your encrypted message is:\n\n    ', token.decode())
+print()
+print('    The key for the decryption process is:\n\n    ', key3.decode())
+print()
+print()
+print(' ······································· proof of decryption of the supplied message ···································')
+print()
+print('    Your decrypted message is:\n\n    ', message_decrypted.decode())
+print()
+print(' ·······················································································································')
+print()
+print()
+print('========================================================================================================================')
